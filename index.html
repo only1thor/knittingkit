@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Knitting Stitch Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="card">
+        <h1>Knitting Stitch Calculator</h1>
+        <p class="subtitle">Evenly distribute increases or decreases across a row</p>
+
+        <form id="calc-form" autocomplete="off">
+            <div class="input-group">
+                <label for="current-stitches">Current stitches</label>
+                <input type="number" id="current-stitches" min="1" step="1" required placeholder="e.g. 100">
+            </div>
+            <div class="input-group">
+                <label for="target-stitches">Target stitches</label>
+                <input type="number" id="target-stitches" min="1" step="1" required placeholder="e.g. 120">
+            </div>
+            <button type="submit" id="calc-btn">Calculate</button>
+        </form>
+
+        <div id="result" class="result hidden">
+            <div id="result-summary" class="result-summary"></div>
+            <pre id="result-pattern" class="result-pattern"></pre>
+            <div id="result-verify" class="result-verify"></div>
+            <button type="button" id="copy-btn" class="copy-btn">Copy pattern</button>
+        </div>
+
+        <div id="error" class="error hidden"></div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
