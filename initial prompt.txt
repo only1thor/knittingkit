@@ -1,0 +1,1 @@
+ want a knitting tool as a webpage. the tool is to help increse knitting stitches from a number eg. 100, to a different number eg 120. and output a plan for how many stiches to knit before adding a new stitch. like "knit 5, add 1, ktit 6, add 1, knit 5, add 1" its importat to distribute the additions evenly, and the total must be the goal. eg. 120.

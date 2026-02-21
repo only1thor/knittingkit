@@ -1,3 +1,65 @@
+/* === Tokens === */
+:root {
+    --bg: #f5ede4;
+    --card: #fff;
+    --card-shadow: rgba(80, 50, 30, 0.1);
+    --text: #3b2f2f;
+    --heading: #6b3a2a;
+    --subtle: #8c7060;
+    --label: #5a3e30;
+    --input-bg: #fdfbf8;
+    --input-border: #d4c4b0;
+    --accent: #b0785a;
+    --accent-hover: #955e42;
+    --accent-active: #7a4c35;
+    --divider: #ece3d8;
+    --pattern-bg: #fdfbf8;
+    --pattern-border: #e4d9cc;
+    --btn-secondary-bg: #f0e6da;
+    --btn-secondary-border: #d4c4b0;
+    --btn-secondary-text: #6b3a2a;
+    --success: #4a7c59;
+    --danger: #b94040;
+    --error-bg: #fdf0f0;
+    --error-border: #e8c0c0;
+    --error-text: #9e3030;
+    --check-done: #e8f0ea;
+    --progress-bg: #e4d9cc;
+    --progress-fill: #b0785a;
+    --progress-complete: #4a7c59;
+}
+
+[data-theme="dark"] {
+    --bg: #1a1614;
+    --card: #272220;
+    --card-shadow: rgba(0, 0, 0, 0.4);
+    --text: #e0d6cc;
+    --heading: #d4a888;
+    --subtle: #9c8878;
+    --label: #c4a690;
+    --input-bg: #1e1a18;
+    --input-border: #4a3e34;
+    --accent: #c4885e;
+    --accent-hover: #d49a72;
+    --accent-active: #e0ac86;
+    --divider: #3a322c;
+    --pattern-bg: #1e1a18;
+    --pattern-border: #3a322c;
+    --btn-secondary-bg: #332c26;
+    --btn-secondary-border: #4a3e34;
+    --btn-secondary-text: #d4a888;
+    --success: #6aad7a;
+    --danger: #d46060;
+    --error-bg: #2c1e1e;
+    --error-border: #5a3030;
+    --error-text: #e08080;
+    --check-done: #252e26;
+    --progress-bg: #3a322c;
+    --progress-fill: #c4885e;
+    --progress-complete: #6aad7a;
+}
+
+/* === Reset === */
 *,
 *::before,
 *::after {
@@ -8,38 +70,80 @@
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    background: #f5ede4;
-    color: #3b2f2f;
+    background: var(--bg);
+    color: var(--text);
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 1.5rem;
     line-height: 1.5;
+    transition: background 0.3s, color 0.3s;
 }
 
+/* === Card === */
 .card {
-    background: #fff;
+    background: var(--card);
     border-radius: 12px;
-    box-shadow: 0 4px 24px rgba(80, 50, 30, 0.1);
+    box-shadow: 0 4px 24px var(--card-shadow);
     padding: 2.5rem 2rem;
     max-width: 480px;
     width: 100%;
+    transition: background 0.3s, box-shadow 0.3s;
+}
+
+.card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.75rem;
 }
 
 h1 {
     font-size: 1.5rem;
     font-weight: 700;
-    color: #6b3a2a;
+    color: var(--heading);
     margin-bottom: 0.25rem;
 }
 
 .subtitle {
     font-size: 0.95rem;
-    color: #8c7060;
-    margin-bottom: 1.75rem;
+    color: var(--subtle);
 }
 
+/* === Theme toggle === */
+.theme-toggle {
+    flex-shrink: 0;
+    width: 2.2rem;
+    height: 2.2rem;
+    border-radius: 50%;
+    border: 1.5px solid var(--input-border);
+    background: var(--btn-secondary-bg);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.15rem;
+    color: var(--btn-secondary-text);
+    transition: background 0.2s, border-color 0.2s;
+    padding: 0;
+    margin-top: 0.15rem;
+}
+
+.theme-toggle:hover {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+}
+
+/* Show sun in dark mode, moon in light mode */
+.icon-sun { display: none; }
+.icon-moon { display: inline; }
+[data-theme="dark"] .icon-sun { display: inline; }
+[data-theme="dark"] .icon-moon { display: none; }
+
+/* === Form === */
 .input-group {
     margin-bottom: 1rem;
 }
@@ -49,23 +153,23 @@ h1 {
     font-size: 0.9rem;
     font-weight: 600;
     margin-bottom: 0.3rem;
-    color: #5a3e30;
+    color: var(--label);
 }
 
 .input-group input {
     width: 100%;
     padding: 0.6rem 0.75rem;
     font-size: 1rem;
-    border: 1.5px solid #d4c4b0;
+    border: 1.5px solid var(--input-border);
     border-radius: 6px;
-    background: #fdfbf8;
-    color: #3b2f2f;
-    transition: border-color 0.2s;
+    background: var(--input-bg);
+    color: var(--text);
+    transition: border-color 0.2s, background 0.2s;
 }
 
 .input-group input:focus {
     outline: none;
-    border-color: #b0785a;
+    border-color: var(--accent);
     box-shadow: 0 0 0 3px rgba(176, 120, 90, 0.15);
 }
 
@@ -75,7 +179,7 @@ h1 {
     font-size: 1rem;
     font-weight: 600;
     color: #fff;
-    background: #b0785a;
+    background: var(--accent);
     border: none;
     border-radius: 6px;
     cursor: pointer;
@@ -83,97 +187,208 @@ h1 {
     transition: background 0.2s;
 }
 
-#calc-btn:hover {
-    background: #955e42;
-}
+#calc-btn:hover { background: var(--accent-hover); }
+#calc-btn:active { background: var(--accent-active); }
 
-#calc-btn:active {
-    background: #7a4c35;
-}
-
-/* Result area */
+/* === Result === */
 .result {
     margin-top: 1.75rem;
     padding-top: 1.25rem;
-    border-top: 1.5px solid #ece3d8;
+    border-top: 1.5px solid var(--divider);
 }
 
 .result-summary {
     font-weight: 600;
     font-size: 1rem;
     margin-bottom: 0.75rem;
-    color: #5a3e30;
+    color: var(--label);
 }
 
-.result-pattern {
-    background: #fdfbf8;
-    border: 1.5px solid #e4d9cc;
+/* === Progress bar === */
+.result-progress {
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.progress-bar {
+    flex: 1;
+    height: 6px;
+    background: var(--progress-bg);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    width: 0%;
+    background: var(--progress-fill);
+    border-radius: 3px;
+    transition: width 0.3s ease, background 0.3s;
+}
+
+.result-progress.complete .progress-fill {
+    background: var(--progress-complete);
+}
+
+.progress-text {
+    font-size: 0.8rem;
+    color: var(--subtle);
+    white-space: nowrap;
+    min-width: 5.5rem;
+    text-align: right;
+}
+
+.result-progress.complete .progress-text {
+    color: var(--success);
+    font-weight: 600;
+}
+
+/* === Checklist === */
+.result-checklist {
+    list-style: none;
+    background: var(--pattern-bg);
+    border: 1.5px solid var(--pattern-border);
     border-radius: 6px;
-    padding: 0.85rem 1rem;
+    padding: 0.4rem 0;
+    max-height: 20rem;
+    overflow-y: auto;
+    transition: background 0.3s, border-color 0.3s;
+}
+
+.check-item {
+    transition: background 0.2s, opacity 0.2s;
+}
+
+.check-item + .check-item {
+    border-top: 1px solid var(--divider);
+}
+
+.check-label {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.5rem 0.85rem;
+    cursor: pointer;
+    user-select: none;
+}
+
+.check-label:hover {
+    background: rgba(176, 120, 90, 0.06);
+}
+
+.check-input {
+    flex-shrink: 0;
+    width: 1.15rem;
+    height: 1.15rem;
+    accent-color: var(--accent);
+    cursor: pointer;
+}
+
+.check-num {
+    flex-shrink: 0;
+    width: 1.6rem;
+    height: 1.6rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--subtle);
+    background: var(--divider);
+    border-radius: 50%;
+    transition: background 0.2s, color 0.2s;
+}
+
+.check-text {
     font-family: "SF Mono", "Fira Code", "Consolas", monospace;
     font-size: 0.88rem;
-    line-height: 1.6;
-    white-space: pre-wrap;
-    word-break: break-word;
-    max-height: 16rem;
-    overflow-y: auto;
-    color: #3b2f2f;
+    line-height: 1.5;
+    color: var(--text);
+    transition: opacity 0.2s;
 }
 
+/* Completed step styling */
+.check-item.done .check-text {
+    opacity: 0.45;
+    text-decoration: line-through;
+}
+
+.check-item.done .check-num {
+    background: var(--success);
+    color: #fff;
+}
+
+/* Info item (no-change case) */
+.check-item-info {
+    padding: 0.75rem 0.85rem;
+    font-size: 0.9rem;
+    color: var(--subtle);
+    list-style: none;
+}
+
+/* === Verify === */
 .result-verify {
-    font-size: 0.85rem;
+    font-size: 0.82rem;
     margin-top: 0.6rem;
+    color: var(--subtle);
 }
 
-.result-verify.ok {
-    color: #4a7c59;
-}
+.result-verify.ok { color: var(--success); }
+.result-verify.fail { color: var(--danger); font-weight: 600; }
 
-.result-verify.fail {
-    color: #b94040;
-    font-weight: 600;
-}
-
-.copy-btn {
+/* === Action buttons === */
+.result-actions {
+    display: flex;
+    gap: 0.5rem;
     margin-top: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.action-btn {
     padding: 0.45rem 1rem;
-    font-size: 0.88rem;
+    font-size: 0.85rem;
     font-weight: 600;
-    color: #6b3a2a;
-    background: #f0e6da;
-    border: 1.5px solid #d4c4b0;
+    color: #fff;
+    background: var(--accent);
+    border: none;
     border-radius: 6px;
     cursor: pointer;
     transition: background 0.2s;
 }
 
-.copy-btn:hover {
-    background: #e4d6c6;
+.action-btn:hover { background: var(--accent-hover); }
+
+.action-btn.secondary {
+    color: var(--btn-secondary-text);
+    background: var(--btn-secondary-bg);
+    border: 1.5px solid var(--btn-secondary-border);
 }
 
-/* Error message */
+.action-btn.secondary:hover {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+}
+
+/* === Error === */
 .error {
     margin-top: 1.25rem;
     padding: 0.75rem 1rem;
-    background: #fdf0f0;
-    border: 1.5px solid #e8c0c0;
+    background: var(--error-bg);
+    border: 1.5px solid var(--error-border);
     border-radius: 6px;
-    color: #9e3030;
+    color: var(--error-text);
     font-size: 0.92rem;
 }
 
-/* Utility */
-.hidden {
-    display: none;
-}
+/* === Utility === */
+.hidden { display: none; }
 
-/* Responsive */
+/* === Responsive === */
 @media (max-width: 500px) {
-    .card {
-        padding: 1.75rem 1.25rem;
-    }
-
-    h1 {
-        font-size: 1.3rem;
-    }
+    .card { padding: 1.75rem 1.25rem; }
+    h1 { font-size: 1.3rem; }
+    .check-label { padding: 0.55rem 0.65rem; gap: 0.5rem; }
 }

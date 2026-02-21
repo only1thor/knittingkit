@@ -8,8 +8,16 @@
 </head>
 <body>
     <main class="card">
-        <h1>Knitting Stitch Calculator</h1>
-        <p class="subtitle">Evenly distribute increases or decreases across a row</p>
+        <header class="card-header">
+            <div>
+                <h1>Knitting Stitch Calculator</h1>
+                <p class="subtitle">Evenly distribute increases or decreases across a row</p>
+            </div>
+            <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+                <span class="icon-sun">&#9788;</span>
+                <span class="icon-moon">&#9790;</span>
+            </button>
+        </header>
 
         <form id="calc-form" autocomplete="off">
             <div class="input-group">
@@ -25,9 +33,16 @@
 
         <div id="result" class="result hidden">
             <div id="result-summary" class="result-summary"></div>
-            <pre id="result-pattern" class="result-pattern"></pre>
+            <div id="result-progress" class="result-progress hidden">
+                <div class="progress-bar"><div id="progress-fill" class="progress-fill"></div></div>
+                <span id="progress-text" class="progress-text"></span>
+            </div>
+            <ol id="result-checklist" class="result-checklist"></ol>
             <div id="result-verify" class="result-verify"></div>
-            <button type="button" id="copy-btn" class="copy-btn">Copy pattern</button>
+            <div class="result-actions">
+                <button type="button" id="copy-btn" class="action-btn">Copy pattern</button>
+                <button type="button" id="reset-btn" class="action-btn secondary">Reset checks</button>
+            </div>
         </div>
 
         <div id="error" class="error hidden"></div>
