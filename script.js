@@ -138,18 +138,35 @@
     }
 
     // --- Validation ---
-    function validate(startStr, targetStr) {
+    function validate(startStr, secondStr, mode) {
         var start = Number(startStr);
-        var target = Number(targetStr);
-        if (startStr === "" || targetStr === "") {
+        var second = Number(secondStr);
+        if (startStr === "" || secondStr === "") {
             return { ok: false, message: "Please enter both values." };
         }
-        if (!Number.isInteger(start) || !Number.isInteger(target)) {
+        if (!Number.isInteger(start) || !Number.isInteger(second)) {
             return { ok: false, message: "Please enter whole numbers only." };
         }
-        if (start <= 0 || target <= 0) {
-            return { ok: false, message: "Stitch counts must be positive integers." };
+        if (start <= 0) {
+            return { ok: false, message: "Current stitches must be a positive integer." };
         }
+
+        var target;
+        if (mode === "change") {
+            if (second === 0) {
+                return { ok: false, message: "Change amount cannot be zero." };
+            }
+            target = start + second;
+            if (target <= 0) {
+                return { ok: false, message: "Result would be " + target + " stitches \u2014 must be positive." };
+            }
+        } else {
+            if (second <= 0) {
+                return { ok: false, message: "Target stitches must be a positive integer." };
+            }
+            target = second;
+        }
+
         return { ok: true, start: start, target: target };
     }
 
@@ -166,9 +183,40 @@
     var copyBtn = document.getElementById("copy-btn");
     var resetBtn = document.getElementById("reset-btn");
     var themeToggle = document.getElementById("theme-toggle");
+    var targetInput = document.getElementById("target-stitches");
+    var targetLabel = document.getElementById("target-label");
+    var modeBtns = document.querySelectorAll(".mode-btn");
 
     // Current steps for copy functionality
     var currentSteps = [];
+
+    // --- Input mode (target vs change) ---
+    var inputMode = "change";
+
+    function setMode(mode) {
+        inputMode = mode;
+        for (var i = 0; i < modeBtns.length; i++) {
+            modeBtns[i].classList.toggle("active", modeBtns[i].dataset.mode === mode);
+        }
+        if (mode === "change") {
+            targetLabel.textContent = "Increase / decrease by";
+            targetInput.placeholder = "e.g. +20 or -10";
+            targetInput.removeAttribute("min");
+        } else {
+            targetLabel.textContent = "Target stitches";
+            targetInput.placeholder = "e.g. 120";
+            targetInput.min = "1";
+        }
+        targetInput.value = "";
+    }
+
+    for (var mi = 0; mi < modeBtns.length; mi++) {
+        modeBtns[mi].addEventListener("click", function () {
+            if (this.dataset.mode !== inputMode) {
+                setMode(this.dataset.mode);
+            }
+        });
+    }
 
     // --- Checklist rendering ---
     function renderChecklist(steps) {
@@ -274,8 +322,8 @@
         hideAll();
 
         var startStr = document.getElementById("current-stitches").value.trim();
-        var targetStr = document.getElementById("target-stitches").value.trim();
-        var v = validate(startStr, targetStr);
+        var secondStr = targetInput.value.trim();
+        var v = validate(startStr, secondStr, inputMode);
 
         if (!v.ok) { showError(v.message); return; }
 
@@ -321,7 +369,7 @@
             var stored = localStorage.getItem("theme");
             if (stored) return stored === "dark";
         } catch (e) {}
-        return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+        return true;
     }
 
     applyTheme(getPreferredTheme());
